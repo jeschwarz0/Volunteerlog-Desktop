@@ -45,10 +45,11 @@ namespace VolunteerLog
             new frmTask().ShowDialog(this);//show a new Task dialog with bias of Logout
         }
 
-        private void frmMenu_Load(object sender, EventArgs e)
+        private void btnAdmin_Click(object sender, EventArgs e)
         {
-            //crashes if not included***
+            Program.manual_path = false;//set path tristate to not manual
+            Program.current_taskid = null;//set no current Taskid
+            new frmAdmin().ShowDialog(this);
         }
-
     }
 }

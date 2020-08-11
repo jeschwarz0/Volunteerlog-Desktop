@@ -35,6 +35,7 @@
             this.cmdLogout = new System.Windows.Forms.Button();
             this.cmdManual = new System.Windows.Forms.Button();
             this.cmdExit = new System.Windows.Forms.Button();
+            this.btnAdmin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblHeader
@@ -98,6 +99,16 @@
             this.cmdExit.UseVisualStyleBackColor = true;
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
+            // btnAdmin
+            // 
+            this.btnAdmin.Location = new System.Drawing.Point(120, 46);
+            this.btnAdmin.Name = "btnAdmin";
+            this.btnAdmin.Size = new System.Drawing.Size(75, 23);
+            this.btnAdmin.TabIndex = 3;
+            this.btnAdmin.Text = "&Admin";
+            this.btnAdmin.UseVisualStyleBackColor = true;
+            this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
+            // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -106,6 +117,7 @@
             this.ClientSize = new System.Drawing.Size(244, 151);
             this.Controls.Add(this.cmdExit);
             this.Controls.Add(this.cmdManual);
+            this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.cmdLogout);
             this.Controls.Add(this.cmdLogin);
             this.Controls.Add(this.cmdJoin);
@@ -116,7 +128,6 @@
             this.MinimizeBox = false;
             this.Name = "frmMenu";
             this.Text = "North Country R.I.D.E.";
-            this.Load += new System.EventHandler(this.frmMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,6 +141,7 @@
         private System.Windows.Forms.Button cmdLogout;
         private System.Windows.Forms.Button cmdManual;
         private System.Windows.Forms.Button cmdExit;
+        private System.Windows.Forms.Button btnAdmin;
     }
 }
 
