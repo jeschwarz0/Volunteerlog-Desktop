@@ -31,11 +31,19 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tbWelcome = new System.Windows.Forms.TabPage();
             this.tbUsers = new System.Windows.Forms.TabPage();
+            this.chkAscending = new System.Windows.Forms.CheckBox();
+            this.lstSortBy = new System.Windows.Forms.ListBox();
+            this.lblSortBy = new System.Windows.Forms.Label();
             this.tbTimestamp = new System.Windows.Forms.TabPage();
             this.tbReport = new System.Windows.Forms.TabPage();
             this.tbMaintenance = new System.Windows.Forms.TabPage();
             this.tbExport = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnUsersSubmit = new System.Windows.Forms.Button();
+            this.lvUsersOutput = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tbUsers.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +74,11 @@
             // 
             // tbUsers
             // 
-            this.tbUsers.Controls.Add(this.tableLayoutPanel1);
+            this.tbUsers.Controls.Add(this.lvUsersOutput);
+            this.tbUsers.Controls.Add(this.btnUsersSubmit);
+            this.tbUsers.Controls.Add(this.chkAscending);
+            this.tbUsers.Controls.Add(this.lstSortBy);
+            this.tbUsers.Controls.Add(this.lblSortBy);
             this.tbUsers.Location = new System.Drawing.Point(4, 22);
             this.tbUsers.Name = "tbUsers";
             this.tbUsers.Padding = new System.Windows.Forms.Padding(3);
@@ -74,6 +86,42 @@
             this.tbUsers.TabIndex = 1;
             this.tbUsers.Text = "Users";
             this.tbUsers.UseVisualStyleBackColor = true;
+            // 
+            // chkAscending
+            // 
+            this.chkAscending.AutoSize = true;
+            this.chkAscending.Checked = true;
+            this.chkAscending.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAscending.Location = new System.Drawing.Point(63, 114);
+            this.chkAscending.Name = "chkAscending";
+            this.chkAscending.Size = new System.Drawing.Size(76, 17);
+            this.chkAscending.TabIndex = 3;
+            this.chkAscending.Text = "Ascending";
+            this.chkAscending.UseVisualStyleBackColor = true;
+            // 
+            // lstSortBy
+            // 
+            this.lstSortBy.FormattingEnabled = true;
+            this.lstSortBy.Items.AddRange(new object[] {
+            "NONE",
+            "First Name",
+            "Last Name",
+            "Last Account Activity",
+            "Total Hours",
+            "# of Records"});
+            this.lstSortBy.Location = new System.Drawing.Point(63, 13);
+            this.lstSortBy.Name = "lstSortBy";
+            this.lstSortBy.Size = new System.Drawing.Size(120, 95);
+            this.lstSortBy.TabIndex = 2;
+            // 
+            // lblSortBy
+            // 
+            this.lblSortBy.AutoSize = true;
+            this.lblSortBy.Location = new System.Drawing.Point(16, 13);
+            this.lblSortBy.Name = "lblSortBy";
+            this.lblSortBy.Size = new System.Drawing.Size(41, 13);
+            this.lblSortBy.TabIndex = 1;
+            this.lblSortBy.Text = "Sort By";
             // 
             // tbTimestamp
             // 
@@ -111,21 +159,47 @@
             this.tbExport.Text = "Export";
             this.tbExport.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel1
+            // btnUsersSubmit
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(501, 23);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(344, 276);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.btnUsersSubmit.Location = new System.Drawing.Point(108, 137);
+            this.btnUsersSubmit.Name = "btnUsersSubmit";
+            this.btnUsersSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnUsersSubmit.TabIndex = 4;
+            this.btnUsersSubmit.Text = "Generate User List";
+            this.btnUsersSubmit.UseVisualStyleBackColor = true;
+            this.btnUsersSubmit.Click += new System.EventHandler(this.btnUsersSubmit_Click);
+            // 
+            // lvUsersOutput
+            // 
+            this.lvUsersOutput.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5});
+            this.lvUsersOutput.HideSelection = false;
+            this.lvUsersOutput.Location = new System.Drawing.Point(189, 13);
+            this.lvUsersOutput.Name = "lvUsersOutput";
+            this.lvUsersOutput.Size = new System.Drawing.Size(680, 237);
+            this.lvUsersOutput.TabIndex = 5;
+            this.lvUsersOutput.UseCompatibleStateImageBehavior = false;
+            this.lvUsersOutput.View = System.Windows.Forms.View.Details;
+            this.lvUsersOutput.Visible = false;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Last Name";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "First Name";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Last Account Activity";
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Total Hours";
             // 
             // frmAdmin
             // 
@@ -135,8 +209,10 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "frmAdmin";
             this.Text = "frmAdmin";
+            this.Load += new System.EventHandler(this.frmAdmin_Load);
             this.tabControl1.ResumeLayout(false);
             this.tbUsers.ResumeLayout(false);
+            this.tbUsers.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -150,6 +226,14 @@
         private System.Windows.Forms.TabPage tbReport;
         private System.Windows.Forms.TabPage tbMaintenance;
         private System.Windows.Forms.TabPage tbExport;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ListBox lstSortBy;
+        private System.Windows.Forms.Label lblSortBy;
+        private System.Windows.Forms.CheckBox chkAscending;
+        private System.Windows.Forms.Button btnUsersSubmit;
+        private System.Windows.Forms.ListView lvUsersOutput;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }

@@ -488,8 +488,73 @@ namespace libVL
         catch (MySQLException) { throw new DatabaseNotOpenException(); }
     }
 
-     #endregion
-       #region Admin
+        #endregion
+        #region Admin
+        /// <summary>
+        /// Gets the user details.
+        /// </summary>
+        /// <param name="selectedIndex">The Order By index.</param>
+        /// <param name="ascending">True if sort is ascending.</param>
+        /// <returns>A String[5] with the results</returns>
+        public List<String[]> getUserAdminTable(int selectedIndex, bool ascending)
+        {
+            String sql = "SELECT v.VolunteerID,v.LastName,v.FirstName,MAX(vl.Date) AS \"LastActivity\",SUM(vl.TotalHours) as \"SumHours\",COUNT(vl.LogID) as \"NumLogs\" FROM Volunteer v LEFT OUTER JOIN volunteerlog vl on v.VolunteerID=vl.VolunteerID GROUP BY v.VolunteerID {0};";
+            MySQLCommand mc = new MySQLCommand(
+                String.Format(sql,getUserOrderBy(selectedIndex, ascending))
+             , vlcon);
+            MySQLDataReader dr;
+            try
+            {
+                dr = mc.ExecuteReaderEx();
+            }
+            catch (MySQLException ex)
+            {
+                mc.Dispose();
+                throw;
+            }
+            mc.Dispose();
+            List<String[]> rval = new List<string[]>();
+            while (dr.Read())
+            {
+                String[] result = new String[5];
+                result[0] = dr[0].ToString();
+                result[1] = dr[1].ToString();
+                result[2] = dr[2].ToString();
+                result[3] = dr[3].ToString();
+                result[4] = String.Concat(dr[4],"/",dr[5]);
+                rval.Add(result);
+            }
+            // Clean up
+            dr.Dispose();
+            return rval;
+        }
+        /// <summary>
+        /// Gets the order by for the user lookup.
+        /// </summary>
+        /// <param name="selectedIndex">The Order By index.</param>
+        /// <param name="ascending">True if sort is ascending.</param>
+        /// <returns>The orderby portion of the query.</returns>
+        private String getUserOrderBy(int selectedIndex, bool ascending)
+        {
+            switch (selectedIndex)
+            {
+                case 0:
+                    return "ORDER BY VolunteerID " + (ascending == true ? "ASC" : "DESC"); ;
+                case 1:
+                    return "ORDER BY FirstName " + (ascending == true ? "ASC" : "DESC");
+                case 2:
+                    return "ORDER BY LastName " + (ascending == true ? "ASC" : "DESC");
+                case 3:
+                    return "ORDER BY LastActivity " + (ascending == true ? "ASC" : "DESC");
+                case 4:
+                    return "ORDER BY SumHours " + (ascending == true ? "ASC" : "DESC");
+                case 5:
+                    return "ORDER BY NumLogs " + (ascending == true ? "ASC" : "DESC");
+                default:
+                    return String.Empty;
+            }
+        }
+
     bool tsBatch(string action,string filter) {
         string qry="";
         switch(action){
