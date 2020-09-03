@@ -555,6 +555,55 @@ namespace libVL
             }
         }
 
+        /// <summary>
+        /// Gets a list of Usernames concatenated with the user ids.
+        /// </summary>
+        /// <returns>A dictionary where the key is the ID and the name is the value.</returns>
+        public Dictionary<int, String> getUsersList()
+        {
+            String sql = "SELECT VolunteerID,CONCAT(FirstName,' ',LastName) FROM Volunteer";
+            MySQLCommand mc = new MySQLCommand(sql, vlcon);
+            MySQLDataReader dr;
+            try
+            {
+                dr = mc.ExecuteReaderEx();
+            }
+            catch (MySQLException)
+            {
+                mc.Dispose();
+                throw;
+            }
+            mc.Dispose();
+            Dictionary<int, String> rval = new Dictionary<int, String>();
+            while (dr.Read())
+            {
+                try
+                {
+                    rval.Add(dr.GetInt32(0), dr.GetString(1));
+                }
+                catch (Exception ex) {
+                    Console.Out.WriteLine(ex.Message);
+                }
+            }
+            dr.Dispose();
+            return rval;
+        }
+        /// <summary>
+        /// Edits a user's Firstname/Lastname.
+        /// </summary>
+        /// <param name="volunteerID">The volunteer id</param>
+        /// <param name="firstName">The new First Name</param>
+        /// <param name="lastName">The new Last Name</param>
+        /// <returns>The result of the query.</returns>
+        public int EditUser(int volunteerID, String firstName, String lastName) {
+            String sql = "UPDATE Volunteer SET FirstName = \"{1}\", LastName = \"{2}\" WHERE VolunteerID = {0};";
+            MySQLCommand mc = new MySQLCommand(String.Format(sql, volunteerID, filterEscape(firstName), filterEscape(lastName)), vlcon);
+            // Execute and store the result
+            int result = mc.ExecuteNonQuery();
+            mc.Dispose();
+            return result;
+        }
+
     bool tsBatch(string action,string filter) {
         string qry="";
         switch(action){
