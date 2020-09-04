@@ -595,7 +595,7 @@ namespace libVL
         /// <param name="firstName">The new First Name</param>
         /// <param name="lastName">The new Last Name</param>
         /// <returns>The result of the query.</returns>
-        public int EditUser(int volunteerID, String firstName, String lastName) {
+        public int editUser(int volunteerID, String firstName, String lastName) {
             String sql = "UPDATE Volunteer SET FirstName = \"{1}\", LastName = \"{2}\" WHERE VolunteerID = {0};";
             MySQLCommand mc = new MySQLCommand(String.Format(sql, volunteerID, filterEscape(firstName), filterEscape(lastName)), vlcon);
             // Execute and store the result
@@ -603,8 +603,22 @@ namespace libVL
             mc.Dispose();
             return result;
         }
+        /// <summary>
+        /// Deletes the user from the Volunteer
+        /// </summary>
+        /// <param name="volunteerID">The ID of the volunteer to delete</param>
+        /// <returns>The result of the query.</returns>
+        public int deleteUser(int volunteerID)
+        {
+            String sql = "DELETE FROM Volunteer WHERE VolunteerID = {0};";
+            MySQLCommand mc = new MySQLCommand(String.Format(sql, volunteerID), vlcon);
+            // Execute and store the result
+            int result = mc.ExecuteNonQuery();
+            mc.Dispose();
+            return result;
+        }
 
-    bool tsBatch(string action,string filter) {
+        bool tsBatch(string action,string filter) {
         string qry="";
         switch(action){
 		case "activate":

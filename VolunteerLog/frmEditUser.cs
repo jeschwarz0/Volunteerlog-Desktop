@@ -58,7 +58,7 @@ namespace VolunteerLog
             {//username duplicate check
                 try
                 {
-                    Program.vc.EditUser(_userID, txtFN.Text.Trim(), txtLN.Text.Trim());//do the insert
+                    Program.vc.editUser(_userID, txtFN.Text.Trim(), txtLN.Text.Trim());//do the insert
                 }
                 catch (MySQLException ex)
                 {

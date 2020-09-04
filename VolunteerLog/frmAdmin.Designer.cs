@@ -194,6 +194,7 @@
             this.btnUserDelete.TabIndex = 1;
             this.btnUserDelete.Text = "&Delete";
             this.btnUserDelete.UseVisualStyleBackColor = true;
+            this.btnUserDelete.Click += new System.EventHandler(this.btnUserDelete_Click);
             // 
             // btnUserEdit
             // 

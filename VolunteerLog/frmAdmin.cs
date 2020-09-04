@@ -138,5 +138,29 @@ namespace VolunteerLog
             }
             
         }
+
+        private void btnUserDelete_Click(object sender, EventArgs e)
+        {
+            if (cboUserSelect.SelectedItem == null)
+                return;
+            String selectedUser = cboUserSelect.SelectedItem.ToString();
+            if (selectedUser != String.Empty)
+            {
+               DialogResult promptResponse = MessageBox.Show("Are you sure you want to delete " + selectedUser + "?", "Confirm Deletion",
+                   MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (promptResponse == DialogResult.OK)
+                {
+                    foreach (KeyValuePair<int, String> kvp in _usersList)
+                    {
+                        if (kvp.Value == selectedUser)
+                        {
+                            // Delete the user
+                            Program.vc.deleteUser(kvp.Key);
+                            initialializeUsersDD();
+                        }
+                    }
+                }
+            }
+        }
     }
 }
