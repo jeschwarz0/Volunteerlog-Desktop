@@ -17,7 +17,7 @@ namespace VolunteerLog
         /// </summary>
         private Dictionary<int, String> _usersList;
         /// <summary>
-        /// Initialized the users dropdown.
+        /// Initialize the users dropdown.
         /// </summary>
         private void initialializeUsersDD() {
             try
@@ -31,11 +31,16 @@ namespace VolunteerLog
                 ShowMySQLException(ex);
                 return;
             }
+            // Clear combobox items
+            cboUserSelect.Items.Clear();
             // Add the items to cboUsers
             foreach (KeyValuePair<int,String> item in _usersList)
             {
                 cboUserSelect.Items.Add(item.Value);
             }
+            // Disable edit and delete
+            btnUserEdit.Enabled = false;
+            btnUserDelete.Enabled = false;
         }
         /// <summary>
         /// Shows a detailed messagebox on MySQL Exception.
@@ -116,13 +121,19 @@ namespace VolunteerLog
 
         private void btnUserEdit_Click(object sender, EventArgs e)
         {
+            if (cboUserSelect.SelectedItem == null)
+                return;
             String selectedUser = cboUserSelect.SelectedItem.ToString();
             if (selectedUser != String.Empty)
             {
                 foreach (KeyValuePair<int, String> kvp in _usersList)
                 {
                     if (kvp.Value == selectedUser)
-                        new frmEditUser(kvp.Key,kvp.Value).ShowDialog();
+                    {
+                        new frmEditUser(kvp.Key, kvp.Value).ShowDialog();
+                        // Refresh the dropdown
+                        initialializeUsersDD();
+                    }
                 }
             }
             
