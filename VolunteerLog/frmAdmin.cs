@@ -7,6 +7,7 @@ namespace VolunteerLog
 {
     public partial class frmAdmin : Form
     {
+        #region Init
         public frmAdmin()
         {
             InitializeComponent();
@@ -25,7 +26,8 @@ namespace VolunteerLog
                 _usersList = Program.vc.getUsersList();
             } catch (MySQLException ex)
             {
-                disableUsersMod();
+                //Hide the Edit User tab
+                tbEditUser.Hide();
                 // Set an empty dictionary for safety
                 _usersList = new Dictionary<int, string>();
                 ShowMySQLException(ex);
@@ -61,19 +63,13 @@ namespace VolunteerLog
                     break;
             }
         }
-
-        /// <summary>
-        /// Disables the Users tab
-        /// </summary>
-        private void disableUsersMod() {
-            tbEditUser.Hide();
-        }
         
         private void frmAdmin_Load(object sender, EventArgs e)
         {
             lstSortBy.SelectedIndex = 0;
         }
-
+        #endregion
+        #region Show Volunteers
         private void btnUsersSubmit_Click(object sender, EventArgs e)
         {
             List<String[]> results;
@@ -109,7 +105,8 @@ namespace VolunteerLog
                 lvUsersOutput.Items.Add(new ListViewItem(row));
             }
         }
-
+        #endregion
+        #region Edit Volunteer
         private void cboUserSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cbSender = (ComboBox)sender;
@@ -154,13 +151,20 @@ namespace VolunteerLog
                     {
                         if (kvp.Value == selectedUser)
                         {
-                            // Delete the user
-                            Program.vc.deleteUser(kvp.Key);
+                            try
+                            {
+                                // Delete the user
+                                Program.vc.deleteUser(kvp.Key);
+                            }
+                            catch (MySQLException ex) {
+                                ShowMySQLException(ex);
+                            }
                             initialializeUsersDD();
                         }
                     }
                 }
             }
         }
+        #endregion
     }
 }
