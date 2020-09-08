@@ -525,6 +525,7 @@ namespace libVL
                 rval.Add(result);
             }
             // Clean up
+            dr.Close();
             dr.Dispose();
             return rval;
         }
@@ -616,6 +617,44 @@ namespace libVL
             int result = mc.ExecuteNonQuery();
             mc.Dispose();
             return result;
+        }
+        /// <summary>
+        /// Gets a Dictionary of VolunteerIDs and names for volunteers with any checkins.
+        /// </summary>
+        ///<exception cref="MySQLException">There was an exception in the database call.</exception>
+        /// <returns>A dictionary </returns>
+        public Dictionary<int,String> getVolunteersWithCheckins()
+        {
+            string sql = "SELECT VolunteerID, CONCAT(FirstName,\" \",LastName) FROM Volunteer WHERE VolunteerID IN (SELECT DISTINCT VolunteerID FROM Checkin WHERE Active=1)";
+            MySQLCommand mc = new MySQLCommand(sql, vlcon);//add where if ACTIVE_LOGIN
+            MySQLDataReader dr;
+            dr = mc.ExecuteReaderEx();
+            Dictionary<int, String> rval = new Dictionary<int, String>();
+            while (dr.Read())// Populate the list of volunteers and ids
+                rval.Add(dr.GetInt32(0), dr.GetString(1));
+            //Close and dispose
+            dr.Close();
+            mc.Dispose();
+            return rval;
+        }
+        /// <summary>
+        /// Gets the CheckID and TimeIn values from Checkin per volunteer
+        /// </summary>
+        /// <param name="volunteerID"></param>
+        /// <returns></returns>
+        public Dictionary<int,DateTime> getCheckinsList(int volunteerID)
+        {
+            String sql = "SELECT CheckID, TimeIn FROM Checkin WHERE VolunteerID={0} AND Active=1 ORDER BY CheckID DESC;";
+            MySQLCommand mc = new MySQLCommand(String.Format(sql, volunteerID), vlcon);//add where if ACTIVE_LOGIN
+            MySQLDataReader dr;
+            dr = mc.ExecuteReaderEx();
+            Dictionary<int, DateTime> rval = new Dictionary<int, DateTime>();
+            while (dr.Read())// Populate the list of volunteers and ids
+                rval.Add(dr.GetInt32(0), DateTime.Parse(dr.GetString(1)));
+            //Close and dispose
+            dr.Close();
+            mc.Dispose();
+            return rval;
         }
 
         bool tsBatch(string action,string filter) {

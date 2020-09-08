@@ -46,12 +46,17 @@
             this.btnUserEdit = new System.Windows.Forms.Button();
             this.cboUserSelect = new System.Windows.Forms.ComboBox();
             this.tbTimestamp = new System.Windows.Forms.TabPage();
+            this.btnTimestampDelete = new System.Windows.Forms.Button();
+            this.btnTimestampEdit = new System.Windows.Forms.Button();
+            this.cboTimestampItems = new System.Windows.Forms.ComboBox();
+            this.cboTimestampVolunteers = new System.Windows.Forms.ComboBox();
             this.tbReport = new System.Windows.Forms.TabPage();
             this.tbMaintenance = new System.Windows.Forms.TabPage();
             this.tbExport = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tbUsers.SuspendLayout();
             this.tbEditUser.SuspendLayout();
+            this.tbTimestamp.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -221,12 +226,59 @@
             // 
             // tbTimestamp
             // 
+            this.tbTimestamp.Controls.Add(this.btnTimestampDelete);
+            this.tbTimestamp.Controls.Add(this.btnTimestampEdit);
+            this.tbTimestamp.Controls.Add(this.cboTimestampItems);
+            this.tbTimestamp.Controls.Add(this.cboTimestampVolunteers);
             this.tbTimestamp.Location = new System.Drawing.Point(4, 22);
             this.tbTimestamp.Name = "tbTimestamp";
             this.tbTimestamp.Size = new System.Drawing.Size(890, 437);
             this.tbTimestamp.TabIndex = 2;
             this.tbTimestamp.Text = "Timestamps";
             this.tbTimestamp.UseVisualStyleBackColor = true;
+            // 
+            // btnTimestampDelete
+            // 
+            this.btnTimestampDelete.Location = new System.Drawing.Point(84, 57);
+            this.btnTimestampDelete.Name = "btnTimestampDelete";
+            this.btnTimestampDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnTimestampDelete.TabIndex = 2;
+            this.btnTimestampDelete.Text = "&Delete";
+            this.btnTimestampDelete.UseVisualStyleBackColor = true;
+            this.btnTimestampDelete.Visible = false;
+            // 
+            // btnTimestampEdit
+            // 
+            this.btnTimestampEdit.Location = new System.Drawing.Point(3, 57);
+            this.btnTimestampEdit.Name = "btnTimestampEdit";
+            this.btnTimestampEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnTimestampEdit.TabIndex = 3;
+            this.btnTimestampEdit.Text = "&Edit";
+            this.btnTimestampEdit.UseVisualStyleBackColor = true;
+            this.btnTimestampEdit.Visible = false;
+            // 
+            // cboTimestampItems
+            // 
+            this.cboTimestampItems.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboTimestampItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTimestampItems.FormattingEnabled = true;
+            this.cboTimestampItems.Location = new System.Drawing.Point(3, 30);
+            this.cboTimestampItems.Name = "cboTimestampItems";
+            this.cboTimestampItems.Size = new System.Drawing.Size(148, 21);
+            this.cboTimestampItems.TabIndex = 1;
+            this.cboTimestampItems.Visible = false;
+            this.cboTimestampItems.SelectedIndexChanged += new System.EventHandler(this.cboTimestampItems_SelectedIndexChanged);
+            // 
+            // cboTimestampVolunteers
+            // 
+            this.cboTimestampVolunteers.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboTimestampVolunteers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTimestampVolunteers.FormattingEnabled = true;
+            this.cboTimestampVolunteers.Location = new System.Drawing.Point(3, 3);
+            this.cboTimestampVolunteers.Name = "cboTimestampVolunteers";
+            this.cboTimestampVolunteers.Size = new System.Drawing.Size(148, 21);
+            this.cboTimestampVolunteers.TabIndex = 0;
+            this.cboTimestampVolunteers.SelectedIndexChanged += new System.EventHandler(this.cboTimestampVolunteers_SelectedIndexChanged);
             // 
             // tbReport
             // 
@@ -272,6 +324,7 @@
             this.tbUsers.ResumeLayout(false);
             this.tbUsers.PerformLayout();
             this.tbEditUser.ResumeLayout(false);
+            this.tbTimestamp.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -298,5 +351,9 @@
         private System.Windows.Forms.ComboBox cboUserSelect;
         private System.Windows.Forms.Button btnUserEdit;
         private System.Windows.Forms.Button btnUserDelete;
+        private System.Windows.Forms.ComboBox cboTimestampItems;
+        private System.Windows.Forms.ComboBox cboTimestampVolunteers;
+        private System.Windows.Forms.Button btnTimestampDelete;
+        private System.Windows.Forms.Button btnTimestampEdit;
     }
 }

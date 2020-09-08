@@ -12,11 +12,20 @@ namespace VolunteerLog
         {
             InitializeComponent();
             initialializeUsersDD();
+            initializeTimestampVolunteers();
         }
         /// <summary>
         /// The dictionary of user names to indexes.
         /// </summary>
         private Dictionary<int, String> _usersList;
+        /// <summary>
+        /// The dictionary of user names with checkins.
+        /// </summary>
+        private Dictionary<int, String> _timestampVolunteers;
+        /// <summary>
+        /// The dictionary of timestamps for the active user.
+        /// </summary>
+        private Dictionary<int, DateTime> _timestampValues;
         /// <summary>
         /// Initialize the users dropdown.
         /// </summary>
@@ -43,6 +52,27 @@ namespace VolunteerLog
             // Disable edit and delete
             btnUserEdit.Enabled = false;
             btnUserDelete.Enabled = false;
+        }
+        /// <summary>
+        /// Initialize the VolunteerList 
+        /// </summary>
+        private void initializeTimestampVolunteers() {
+            try
+            {
+                _timestampVolunteers = Program.vc.getVolunteersWithCheckins();
+            }
+            catch (MySQLException ex)
+            {
+                ShowMySQLException(ex);
+                _timestampVolunteers = new Dictionary<int, String>();
+            }
+                // Clear and add users to list
+            cboTimestampVolunteers.Items.Clear();
+            foreach (KeyValuePair<int,String> kvp in _timestampVolunteers) {
+                cboTimestampVolunteers.Items.Add(kvp.Value);
+            }// Set additional controls to invisible
+            cboTimestampItems.Visible = btnTimestampDelete.Visible = btnTimestampEdit.Visible = false;
+            cboTimestampItems.Items.Clear();
         }
         /// <summary>
         /// Shows a detailed messagebox on MySQL Exception.
@@ -164,6 +194,59 @@ namespace VolunteerLog
                     }
                 }
             }
+        }
+        #endregion
+        #region Timestamps
+        private void cboTimestampVolunteers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            object volunteerSelected = ((ComboBox)sender).SelectedItem;
+            if (volunteerSelected != null) {
+                // Find the actively selected volunteerID
+                int volunteerID = -1;
+                foreach (KeyValuePair<int, String> kvp in _timestampVolunteers) {
+                    if (kvp.Value == volunteerSelected.ToString())
+                    {
+                        volunteerID = kvp.Key;
+                        break;
+                    }
+                }// Return if not found
+                getTimestampItems(volunteerID);
+                populatecboTimestampItems();
+            }
+        }
+
+        private void getTimestampItems(int volunteerID) {
+            // If volunteerID is not found, exit
+            if (volunteerID == -1) {
+                _timestampValues = new Dictionary<int, DateTime>();
+                return;
+            }
+            try
+            {
+                _timestampValues = Program.vc.getCheckinsList(volunteerID);
+            }
+            catch (MySQLException ex)
+            {
+                ShowMySQLException(ex);
+                _timestampValues = new Dictionary<int, DateTime>();
+            }
+        }
+
+        private void populatecboTimestampItems() {
+            // Show the top tier items list
+            cboTimestampItems.Visible = true;
+            // Empty the list first
+            cboTimestampItems.Items.Clear();
+            foreach (KeyValuePair<int, DateTime> kvp in _timestampValues) {
+                cboTimestampItems.Items.Add(kvp.Value.ToString());
+            }
+        }
+      
+        private void cboTimestampItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            object selectedTS = ((ComboBox)sender).SelectedItem;
+            // Show or hide Timestamp delete and edit buttons
+            btnTimestampEdit.Visible = btnTimestampDelete.Visible = selectedTS != null;
         }
         #endregion
     }
