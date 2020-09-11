@@ -656,6 +656,20 @@ namespace libVL
             mc.Dispose();
             return rval;
         }
+        /// <summary>
+        /// Deletes a checkin by ID.
+        /// </summary>
+        /// <param name="checkID">The identifier of the checkin to delete.</param>
+        /// <returns>Result of Execution.</returns>
+        public int deleteCheckin(int checkID)
+        {
+            String sql = "DELETE FROM Checkin WHERE CheckID = {0};";
+            MySQLCommand mc = new MySQLCommand(String.Format(sql, checkID), vlcon);
+            // Execute and store the result
+            int result = mc.ExecuteNonQuery();
+            mc.Dispose();
+            return result;
+        }
 
         bool tsBatch(string action,string filter) {
         string qry="";

@@ -246,6 +246,7 @@
             this.btnTimestampDelete.Text = "&Delete";
             this.btnTimestampDelete.UseVisualStyleBackColor = true;
             this.btnTimestampDelete.Visible = false;
+            this.btnTimestampDelete.Click += new System.EventHandler(this.btnTimestampDelete_Click);
             // 
             // btnTimestampEdit
             // 
