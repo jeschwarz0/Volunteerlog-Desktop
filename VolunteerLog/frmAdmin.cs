@@ -300,5 +300,26 @@ namespace VolunteerLog
             }
         }
         #endregion
+
+        private void btnTimestampEdit_Click(object sender, EventArgs e)
+        {
+            if (cboTimestampItems.SelectedItem == null)
+                return;
+            String selectedItem = cboTimestampItems.SelectedItem.ToString();
+            if (selectedItem != String.Empty)
+            {
+                foreach (KeyValuePair<int, DateTime> kvp in _timestampValues)
+                {// If found show edit dialog
+                    if (kvp.Value.ToString() == selectedItem)
+                    {
+                        DialogResult result = new frmEditCheckin(kvp.Key).ShowDialog();
+                        if (result == DialogResult.OK) {
+                            initializeTimestampVolunteers();
+                        }
+                        break;//End the loop
+                    }
+                }
+            }
+        }
     }
 }

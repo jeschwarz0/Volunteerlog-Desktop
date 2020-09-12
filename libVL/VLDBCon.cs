@@ -670,6 +670,47 @@ namespace libVL
             mc.Dispose();
             return result;
         }
+        /// <summary>
+        /// Edits a checkin object
+        /// </summary>
+        /// <param name="checkID">The identifier.</param>
+        /// <param name="timeIn">The new TimeIn</param>
+        /// <param name="isactive"></param>
+        /// <exception cref="MySQLException">Something went wrong with the query, perhaps timein isn't a datetime?</exception>
+        /// <returns>Result of the query.</returns>
+        public int editCheckin(int checkID, String timeIn, bool isactive)
+        {
+            String sql = "UPDATE checkin SET TimeIn = \"{1}\", Active = \"{2}\" WHERE CheckID = {0};";
+            MySQLCommand mc = new MySQLCommand(String.Format(sql, checkID, filterEscape(timeIn), isactive ? 1 : 0), vlcon);
+            // Execute and store the result
+            int result = mc.ExecuteNonQuery();
+            mc.Dispose();
+            return result;
+        }
+        /// <summary>
+        /// Gets a checkin detail object.
+        /// </summary>
+        /// <param name="checkID">The identifier.</param>
+        /// <returns>A CheckinRec with the first results only.</returns>
+        public CheckinRec getCheckinDetail(int checkID)
+        {
+            String sql = "SELECT CheckID, TimeIn, Active FROM Checkin WHERE CheckID={0}";
+            MySQLCommand mc = new MySQLCommand(String.Format(sql, checkID), vlcon);
+            MySQLDataReader dr;
+            dr = mc.ExecuteReaderEx();
+            CheckinRec rval = new CheckinRec();
+            if (dr.Read())// Only loop once 
+            {
+                rval.CheckID = dr.GetInt32(0);
+                rval.TimeIn = dr.GetString(1);
+                rval.IsActive = dr.GetBoolean(2);
+            }
+            //Close and dispose
+            dr.Close();
+            dr.Dispose();
+            mc.Dispose();
+            return rval;
+        }
 
         bool tsBatch(string action,string filter) {
         string qry="";

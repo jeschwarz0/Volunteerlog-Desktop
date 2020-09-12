@@ -257,6 +257,7 @@
             this.btnTimestampEdit.Text = "&Edit";
             this.btnTimestampEdit.UseVisualStyleBackColor = true;
             this.btnTimestampEdit.Visible = false;
+            this.btnTimestampEdit.Click += new System.EventHandler(this.btnTimestampEdit_Click);
             // 
             // cboTimestampItems
             // 
