@@ -299,7 +299,6 @@ namespace VolunteerLog
                 }
             }
         }
-        #endregion
 
         private void btnTimestampEdit_Click(object sender, EventArgs e)
         {
@@ -321,5 +320,46 @@ namespace VolunteerLog
                 }
             }
         }
+        /// <summary>
+        /// Gets the first selected RadioButton in source.
+        /// </summary>
+        /// <param name="source">The array of RadioButton objects.</param>
+        /// <returns>The first selected or String.Empty.</returns>
+        private String getSelectedRB(RadioButton[] source)
+        {
+            if (source == null) return String.Empty;
+            foreach (RadioButton button in source)
+            {
+                // Return text of the first button selected
+                if (button != null && button.Checked)
+                    return button.Text;
+            }//Couldn't find one
+            return String.Empty;
+        }
+
+        private void btnTSBatch_Click(object sender, EventArgs e)
+        {// Get action and filter selection
+            String action = getSelectedRB(new RadioButton[]{ rdoActivate, rdoDeactivate, rdoDelete });
+            String filter = getSelectedRB(new RadioButton[]{ rdoAll, rdoBeforeToday, rdoToday, rdoClosed});
+            // Check for null or empty
+            if (!String.IsNullOrEmpty(action) && !String.IsNullOrEmpty(filter)) {
+                try
+                {
+                    bool result = Program.vc.tsBatch(action, filter);
+                    if (result)
+                    {// Show result of batch operation
+                        MessageBox.Show("Batch Operation Succeeded", "Timestamps Batch", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        initializeTimestampVolunteers();// Reset details
+                    }
+                    else// Show error dialog
+                        MessageBox.Show("Batch Operation Failed", "Timestamps Batch", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (MySQLException ex)
+                {
+                    ShowMySQLException(ex);
+                }
+            }
+        }
+        #endregion
     }
 }

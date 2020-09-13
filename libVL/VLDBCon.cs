@@ -711,45 +711,54 @@ namespace libVL
             mc.Dispose();
             return rval;
         }
+        /// <summary>
+        /// Runs a timestamp batch command.
+        /// </summary>
+        /// <param name="action">The action to take on the record.</param>
+        /// <param name="filter">The record filter to select which records are affected.</param>
+        /// <returns>True if action and filter are valid.</returns>
+        public bool tsBatch(string action, string filter)
+        {
+            string qry = String.Empty;
+            switch (action)
+            {
+                case "Activate":
+                    qry = "UPDATE checkin SET Active=1";
+                    break;
+                case "Deactivate":
+                    qry = "UPDATE checkin SET Active=0";
+                    break;
+                case "Delete":
+                case "purge":
+                    qry = "DELETE FROM checkin";
+                    break;
+                default:
+                    return false;
+            }//end switch
+             //append filter
+            switch (filter)
+            {
+                default:
+                case "All":
+                    //do nothing
+                    break;
+                case "Before Today":
+                    qry += " WHERE DATE(timein)<DATE(NOW())";
+                    break;
+                case "Today":
+                    qry += " WHERE DATE(timein)=DATE(NOW())";
+                    break;
+                case "Closed":
+                    qry += " WHERE Active=0";
+                    break;
+            }//end switch filter
+            MySQLCommand mc = new MySQLCommand(qry, vlcon);
+            mc.ExecuteNonQuery();
+            mc.Dispose();
+            return true;
+        }//end function
 
-        bool tsBatch(string action,string filter) {
-        string qry="";
-        switch(action){
-		case "activate":
-			qry="UPDATE checkin SET Active=1";
-			break;
-		case "deactivate":
-			qry="UPDATE checkin SET Active=0";
-			break;
-		case "delete":case "purge":
-			qry="DELETE FROM checkin";
-			break;
-		default:
-			return false;
-	}//end switch
-	//append filter
-	switch(filter){
-		case "all":
-			//do nothing
-			break;
-		case "old":
-			qry +=" WHERE DATE(timein)<DATE(NOW())";
-			break;
-		case "today":
-			qry +=" WHERE DATE(timein)=DATE(NOW())";
-			break;
-		case "inactive":
-			qry +=" WHERE Active=0";
-			break;
-		case "active":
-			qry +=" WHERE Active=1";
-			break;
-	}//end switch filter
-    return new MySQLCommand(qry, vlcon).ExecuteNonQuery()==1;
-    }//end function
-
-    bool mutils(string action)
-    {
+        bool mutils(string action){
         string qry;
         switch (action)
         {
@@ -768,8 +777,10 @@ namespace libVL
         }//end switch
         return new MySQLCommand(qry, vlcon).ExecuteNonQuery() == 1;
     }//end function
+        #endregion
+        #region Generics
 
-    public Boolean deleteRecord(string table,string ID_Field,uint ID)
+        public Boolean deleteRecord(string table,string ID_Field,uint ID)
     {
         try
         {
