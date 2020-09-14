@@ -758,7 +758,30 @@ namespace libVL
             return true;
         }//end function
 
-        bool mutils(string action){
+        public Dictionary<string, int> getTableOverhead()
+        {
+            String sql = "SHOW TABLE STATUS;";
+            MySQLCommand mc = new MySQLCommand(sql, vlcon);
+            MySQLDataReader dr;
+            dr = mc.ExecuteReaderEx();
+            Dictionary<string,int> rval = new Dictionary<string,int>();
+            while (dr.Read())// Only loop once 
+            {
+                if (dr["Engine"].GetType() != typeof(DBNull) )// Ignore views
+                    rval.Add(dr["Name"].ToString(), Int32.Parse(dr["Data_free"].ToString()));
+            }
+            //Close and dispose
+            dr.Close();
+            dr.Dispose();
+            mc.Dispose();
+            return rval;
+        }
+        /// <summary>
+        /// Executes a maintenance function.
+        /// </summary>
+        /// <param name="action">The action to perform, options are "rtask", "topt", and "trep".</param>
+        /// <returns></returns>
+        public bool mutils(string action){
         string qry;
         switch (action)
         {
@@ -775,7 +798,10 @@ namespace libVL
             default:
                 return false;
         }//end switch
-        return new MySQLCommand(qry, vlcon).ExecuteNonQuery() == 1;
+        MySQLCommand cmd = new MySQLCommand(qry, vlcon);
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        return true;
     }//end function
         #endregion
         #region Generics

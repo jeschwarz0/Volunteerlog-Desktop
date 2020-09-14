@@ -79,6 +79,24 @@ namespace VolunteerLog
             cboTimestampItems.Items.Clear();
         }
         /// <summary>
+        /// Loads the overhead table values for all tables.
+        /// </summary>
+        private void loadOverheadTable() {
+            try
+            {
+                Dictionary<string, int> overheadtable = Program.vc.getTableOverhead();
+                // Set all of the overhead results
+                lblCheckin.Text = overheadtable["checkin"].ToString();
+                lblVolunteer.Text = overheadtable["volunteer"].ToString();
+                lblVolunteerLog.Text = overheadtable["volunteerlog"].ToString();
+                lblVolunteerTask.Text = overheadtable["volunteertask"].ToString();
+            }
+            catch (MySQLException ex) {
+                ShowMySQLException(ex);
+            }
+        }
+
+        /// <summary>
         /// Shows a detailed messagebox on MySQL Exception.
         /// </summary>
         /// <param name="ex">The exception object.</param>
@@ -359,6 +377,49 @@ namespace VolunteerLog
                     ShowMySQLException(ex);
                 }
             }
+        }
+        #endregion
+        #region Maintenance
+        private void tbMaintenance_Enter(object sender, EventArgs e)
+        {
+            loadOverheadTable();
+        }
+        
+        /// <summary>
+        /// Excutes mutils() with an error and success message.
+        /// </summary>
+        /// <param name="action">The action keyword.</param>
+        /// <param name="descript_success">The success description.</param>
+        /// <param name="descript_error">The error description.</param>
+        private void execMaint(string action, string descript_success, string descript_error)
+        {
+            try
+            {
+                if (Program.vc.mutils(action))
+                    MessageBox.Show("You have successfully "+descript_success, "Maintenance", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("Failed to "+descript_error, "Maintenance Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (MySQLException ex)
+            {
+                ShowMySQLException(ex);
+            }
+        }
+
+        private void btnRTask_Click(object sender, EventArgs e)
+        {
+            execMaint("rtask", "removed unused tasks", "remove unused tasks");
+        }
+
+        private void btnTRep_Click(object sender, EventArgs e)
+        {
+            execMaint("trep", "repaired tables", "repair tables");
+        }
+
+        private void btnTOpt_Click(object sender, EventArgs e)
+        {
+            execMaint("topt", "optimized tables", "optimize tables");
+            // Reload the overhead table
+            loadOverheadTable();
         }
         #endregion
     }

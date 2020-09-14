@@ -46,29 +46,43 @@
             this.btnUserEdit = new System.Windows.Forms.Button();
             this.cboUserSelect = new System.Windows.Forms.ComboBox();
             this.tbTimestamp = new System.Windows.Forms.TabPage();
-            this.rdoActivate = new System.Windows.Forms.RadioButton();
+            this.btnTSBatch = new System.Windows.Forms.Button();
+            this.grpTSFilter = new System.Windows.Forms.GroupBox();
+            this.rdoClosed = new System.Windows.Forms.RadioButton();
+            this.rdoToday = new System.Windows.Forms.RadioButton();
+            this.rdoBeforeToday = new System.Windows.Forms.RadioButton();
+            this.rdoAll = new System.Windows.Forms.RadioButton();
             this.grpTSAction = new System.Windows.Forms.GroupBox();
+            this.rdoDelete = new System.Windows.Forms.RadioButton();
+            this.rdoDeactivate = new System.Windows.Forms.RadioButton();
+            this.rdoActivate = new System.Windows.Forms.RadioButton();
             this.btnTimestampDelete = new System.Windows.Forms.Button();
             this.btnTimestampEdit = new System.Windows.Forms.Button();
             this.cboTimestampItems = new System.Windows.Forms.ComboBox();
             this.cboTimestampVolunteers = new System.Windows.Forms.ComboBox();
             this.tbReport = new System.Windows.Forms.TabPage();
             this.tbMaintenance = new System.Windows.Forms.TabPage();
+            this.btnTRep = new System.Windows.Forms.Button();
+            this.btnRTask = new System.Windows.Forms.Button();
+            this.grpOverhead = new System.Windows.Forms.GroupBox();
+            this.btnTOpt = new System.Windows.Forms.Button();
+            this.lblVolunteerTask = new System.Windows.Forms.Label();
+            this.lblVolunteerLog = new System.Windows.Forms.Label();
+            this.lblVolunteer = new System.Windows.Forms.Label();
+            this.lblCheckin = new System.Windows.Forms.Label();
+            this.lblVolunteerTaskLabel = new System.Windows.Forms.Label();
+            this.lblVolunteerLogLabel = new System.Windows.Forms.Label();
+            this.lblVolunteerLabel = new System.Windows.Forms.Label();
+            this.lblCheckinLabel = new System.Windows.Forms.Label();
             this.tbExport = new System.Windows.Forms.TabPage();
-            this.rdoDeactivate = new System.Windows.Forms.RadioButton();
-            this.rdoDelete = new System.Windows.Forms.RadioButton();
-            this.grpTSFilter = new System.Windows.Forms.GroupBox();
-            this.rdoBeforeToday = new System.Windows.Forms.RadioButton();
-            this.rdoAll = new System.Windows.Forms.RadioButton();
-            this.rdoToday = new System.Windows.Forms.RadioButton();
-            this.rdoClosed = new System.Windows.Forms.RadioButton();
-            this.btnTSBatch = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tbUsers.SuspendLayout();
             this.tbEditUser.SuspendLayout();
             this.tbTimestamp.SuspendLayout();
-            this.grpTSAction.SuspendLayout();
             this.grpTSFilter.SuspendLayout();
+            this.grpTSAction.SuspendLayout();
+            this.tbMaintenance.SuspendLayout();
+            this.grpOverhead.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -252,16 +266,72 @@
             this.tbTimestamp.Text = "Timestamps";
             this.tbTimestamp.UseVisualStyleBackColor = true;
             // 
-            // rdoActivate
+            // btnTSBatch
             // 
-            this.rdoActivate.AutoSize = true;
-            this.rdoActivate.Location = new System.Drawing.Point(17, 19);
-            this.rdoActivate.Name = "rdoActivate";
-            this.rdoActivate.Size = new System.Drawing.Size(64, 17);
-            this.rdoActivate.TabIndex = 5;
-            this.rdoActivate.TabStop = true;
-            this.rdoActivate.Text = "Activate";
-            this.rdoActivate.UseVisualStyleBackColor = true;
+            this.btnTSBatch.Location = new System.Drawing.Point(229, 220);
+            this.btnTSBatch.Name = "btnTSBatch";
+            this.btnTSBatch.Size = new System.Drawing.Size(75, 23);
+            this.btnTSBatch.TabIndex = 5;
+            this.btnTSBatch.Text = "Run";
+            this.btnTSBatch.UseVisualStyleBackColor = true;
+            this.btnTSBatch.Click += new System.EventHandler(this.btnTSBatch_Click);
+            // 
+            // grpTSFilter
+            // 
+            this.grpTSFilter.Controls.Add(this.rdoClosed);
+            this.grpTSFilter.Controls.Add(this.rdoToday);
+            this.grpTSFilter.Controls.Add(this.rdoBeforeToday);
+            this.grpTSFilter.Controls.Add(this.rdoAll);
+            this.grpTSFilter.Location = new System.Drawing.Point(189, 100);
+            this.grpTSFilter.Name = "grpTSFilter";
+            this.grpTSFilter.Size = new System.Drawing.Size(116, 113);
+            this.grpTSFilter.TabIndex = 4;
+            this.grpTSFilter.TabStop = false;
+            this.grpTSFilter.Text = "Batch Filter";
+            // 
+            // rdoClosed
+            // 
+            this.rdoClosed.AutoSize = true;
+            this.rdoClosed.Location = new System.Drawing.Point(17, 88);
+            this.rdoClosed.Name = "rdoClosed";
+            this.rdoClosed.Size = new System.Drawing.Size(57, 17);
+            this.rdoClosed.TabIndex = 5;
+            this.rdoClosed.TabStop = true;
+            this.rdoClosed.Text = "Closed";
+            this.rdoClosed.UseVisualStyleBackColor = true;
+            // 
+            // rdoToday
+            // 
+            this.rdoToday.AutoSize = true;
+            this.rdoToday.Location = new System.Drawing.Point(17, 65);
+            this.rdoToday.Name = "rdoToday";
+            this.rdoToday.Size = new System.Drawing.Size(55, 17);
+            this.rdoToday.TabIndex = 5;
+            this.rdoToday.TabStop = true;
+            this.rdoToday.Text = "Today";
+            this.rdoToday.UseVisualStyleBackColor = true;
+            // 
+            // rdoBeforeToday
+            // 
+            this.rdoBeforeToday.AutoSize = true;
+            this.rdoBeforeToday.Location = new System.Drawing.Point(17, 42);
+            this.rdoBeforeToday.Name = "rdoBeforeToday";
+            this.rdoBeforeToday.Size = new System.Drawing.Size(89, 17);
+            this.rdoBeforeToday.TabIndex = 5;
+            this.rdoBeforeToday.TabStop = true;
+            this.rdoBeforeToday.Text = "Before Today";
+            this.rdoBeforeToday.UseVisualStyleBackColor = true;
+            // 
+            // rdoAll
+            // 
+            this.rdoAll.AutoSize = true;
+            this.rdoAll.Location = new System.Drawing.Point(17, 19);
+            this.rdoAll.Name = "rdoAll";
+            this.rdoAll.Size = new System.Drawing.Size(36, 17);
+            this.rdoAll.TabIndex = 5;
+            this.rdoAll.TabStop = true;
+            this.rdoAll.Text = "All";
+            this.rdoAll.UseVisualStyleBackColor = true;
             // 
             // grpTSAction
             // 
@@ -274,6 +344,41 @@
             this.grpTSAction.TabIndex = 4;
             this.grpTSAction.TabStop = false;
             this.grpTSAction.Text = "Batch Action";
+            // 
+            // rdoDelete
+            // 
+            this.rdoDelete.AutoSize = true;
+            this.rdoDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdoDelete.ForeColor = System.Drawing.Color.Red;
+            this.rdoDelete.Location = new System.Drawing.Point(17, 65);
+            this.rdoDelete.Name = "rdoDelete";
+            this.rdoDelete.Size = new System.Drawing.Size(62, 17);
+            this.rdoDelete.TabIndex = 5;
+            this.rdoDelete.TabStop = true;
+            this.rdoDelete.Text = "Delete";
+            this.rdoDelete.UseVisualStyleBackColor = true;
+            // 
+            // rdoDeactivate
+            // 
+            this.rdoDeactivate.AutoSize = true;
+            this.rdoDeactivate.Location = new System.Drawing.Point(17, 42);
+            this.rdoDeactivate.Name = "rdoDeactivate";
+            this.rdoDeactivate.Size = new System.Drawing.Size(77, 17);
+            this.rdoDeactivate.TabIndex = 5;
+            this.rdoDeactivate.TabStop = true;
+            this.rdoDeactivate.Text = "Deactivate";
+            this.rdoDeactivate.UseVisualStyleBackColor = true;
+            // 
+            // rdoActivate
+            // 
+            this.rdoActivate.AutoSize = true;
+            this.rdoActivate.Location = new System.Drawing.Point(17, 19);
+            this.rdoActivate.Name = "rdoActivate";
+            this.rdoActivate.Size = new System.Drawing.Size(64, 17);
+            this.rdoActivate.TabIndex = 5;
+            this.rdoActivate.TabStop = true;
+            this.rdoActivate.Text = "Activate";
+            this.rdoActivate.UseVisualStyleBackColor = true;
             // 
             // btnTimestampDelete
             // 
@@ -331,12 +436,136 @@
             // 
             // tbMaintenance
             // 
+            this.tbMaintenance.Controls.Add(this.btnTRep);
+            this.tbMaintenance.Controls.Add(this.btnRTask);
+            this.tbMaintenance.Controls.Add(this.grpOverhead);
             this.tbMaintenance.Location = new System.Drawing.Point(4, 22);
             this.tbMaintenance.Name = "tbMaintenance";
             this.tbMaintenance.Size = new System.Drawing.Size(890, 437);
             this.tbMaintenance.TabIndex = 4;
             this.tbMaintenance.Text = "Maintenance";
             this.tbMaintenance.UseVisualStyleBackColor = true;
+            this.tbMaintenance.Enter += new System.EventHandler(this.tbMaintenance_Enter);
+            // 
+            // btnTRep
+            // 
+            this.btnTRep.Location = new System.Drawing.Point(3, 27);
+            this.btnTRep.Name = "btnTRep";
+            this.btnTRep.Size = new System.Drawing.Size(135, 23);
+            this.btnTRep.TabIndex = 2;
+            this.btnTRep.Text = "Repair Tables";
+            this.btnTRep.UseVisualStyleBackColor = true;
+            this.btnTRep.Click += new System.EventHandler(this.btnTRep_Click);
+            // 
+            // btnRTask
+            // 
+            this.btnRTask.Location = new System.Drawing.Point(3, 3);
+            this.btnRTask.Name = "btnRTask";
+            this.btnRTask.Size = new System.Drawing.Size(135, 23);
+            this.btnRTask.TabIndex = 1;
+            this.btnRTask.Text = "Remove unused tasks";
+            this.btnRTask.UseVisualStyleBackColor = true;
+            this.btnRTask.Click += new System.EventHandler(this.btnRTask_Click);
+            // 
+            // grpOverhead
+            // 
+            this.grpOverhead.Controls.Add(this.btnTOpt);
+            this.grpOverhead.Controls.Add(this.lblVolunteerTask);
+            this.grpOverhead.Controls.Add(this.lblVolunteerLog);
+            this.grpOverhead.Controls.Add(this.lblVolunteer);
+            this.grpOverhead.Controls.Add(this.lblCheckin);
+            this.grpOverhead.Controls.Add(this.lblVolunteerTaskLabel);
+            this.grpOverhead.Controls.Add(this.lblVolunteerLogLabel);
+            this.grpOverhead.Controls.Add(this.lblVolunteerLabel);
+            this.grpOverhead.Controls.Add(this.lblCheckinLabel);
+            this.grpOverhead.Location = new System.Drawing.Point(3, 56);
+            this.grpOverhead.Name = "grpOverhead";
+            this.grpOverhead.Size = new System.Drawing.Size(118, 104);
+            this.grpOverhead.TabIndex = 0;
+            this.grpOverhead.TabStop = false;
+            this.grpOverhead.Text = "Overhead";
+            // 
+            // btnTOpt
+            // 
+            this.btnTOpt.Location = new System.Drawing.Point(6, 71);
+            this.btnTOpt.Name = "btnTOpt";
+            this.btnTOpt.Size = new System.Drawing.Size(106, 23);
+            this.btnTOpt.TabIndex = 3;
+            this.btnTOpt.Text = "Optimize Tables";
+            this.btnTOpt.UseVisualStyleBackColor = true;
+            this.btnTOpt.Click += new System.EventHandler(this.btnTOpt_Click);
+            // 
+            // lblVolunteerTask
+            // 
+            this.lblVolunteerTask.AutoSize = true;
+            this.lblVolunteerTask.Location = new System.Drawing.Point(80, 55);
+            this.lblVolunteerTask.Name = "lblVolunteerTask";
+            this.lblVolunteerTask.Size = new System.Drawing.Size(13, 13);
+            this.lblVolunteerTask.TabIndex = 6;
+            this.lblVolunteerTask.Text = "?";
+            // 
+            // lblVolunteerLog
+            // 
+            this.lblVolunteerLog.AutoSize = true;
+            this.lblVolunteerLog.Location = new System.Drawing.Point(80, 42);
+            this.lblVolunteerLog.Name = "lblVolunteerLog";
+            this.lblVolunteerLog.Size = new System.Drawing.Size(13, 13);
+            this.lblVolunteerLog.TabIndex = 5;
+            this.lblVolunteerLog.Text = "?";
+            // 
+            // lblVolunteer
+            // 
+            this.lblVolunteer.AutoSize = true;
+            this.lblVolunteer.Location = new System.Drawing.Point(80, 29);
+            this.lblVolunteer.Name = "lblVolunteer";
+            this.lblVolunteer.Size = new System.Drawing.Size(13, 13);
+            this.lblVolunteer.TabIndex = 4;
+            this.lblVolunteer.Text = "?";
+            // 
+            // lblCheckin
+            // 
+            this.lblCheckin.AutoSize = true;
+            this.lblCheckin.Location = new System.Drawing.Point(80, 16);
+            this.lblCheckin.Name = "lblCheckin";
+            this.lblCheckin.Size = new System.Drawing.Size(13, 13);
+            this.lblCheckin.TabIndex = 1;
+            this.lblCheckin.Text = "?";
+            // 
+            // lblVolunteerTaskLabel
+            // 
+            this.lblVolunteerTaskLabel.AutoSize = true;
+            this.lblVolunteerTaskLabel.Location = new System.Drawing.Point(6, 55);
+            this.lblVolunteerTaskLabel.Name = "lblVolunteerTaskLabel";
+            this.lblVolunteerTaskLabel.Size = new System.Drawing.Size(74, 13);
+            this.lblVolunteerTaskLabel.TabIndex = 3;
+            this.lblVolunteerTaskLabel.Text = "volunteertask:";
+            // 
+            // lblVolunteerLogLabel
+            // 
+            this.lblVolunteerLogLabel.AutoSize = true;
+            this.lblVolunteerLogLabel.Location = new System.Drawing.Point(6, 42);
+            this.lblVolunteerLogLabel.Name = "lblVolunteerLogLabel";
+            this.lblVolunteerLogLabel.Size = new System.Drawing.Size(68, 13);
+            this.lblVolunteerLogLabel.TabIndex = 2;
+            this.lblVolunteerLogLabel.Text = "volunteerlog:";
+            // 
+            // lblVolunteerLabel
+            // 
+            this.lblVolunteerLabel.AutoSize = true;
+            this.lblVolunteerLabel.Location = new System.Drawing.Point(6, 29);
+            this.lblVolunteerLabel.Name = "lblVolunteerLabel";
+            this.lblVolunteerLabel.Size = new System.Drawing.Size(54, 13);
+            this.lblVolunteerLabel.TabIndex = 1;
+            this.lblVolunteerLabel.Text = "volunteer:";
+            // 
+            // lblCheckinLabel
+            // 
+            this.lblCheckinLabel.AutoSize = true;
+            this.lblCheckinLabel.Location = new System.Drawing.Point(6, 16);
+            this.lblCheckinLabel.Name = "lblCheckinLabel";
+            this.lblCheckinLabel.Size = new System.Drawing.Size(48, 13);
+            this.lblCheckinLabel.TabIndex = 1;
+            this.lblCheckinLabel.Text = "checkin:";
             // 
             // tbExport
             // 
@@ -346,97 +575,6 @@
             this.tbExport.TabIndex = 5;
             this.tbExport.Text = "Export";
             this.tbExport.UseVisualStyleBackColor = true;
-            // 
-            // rdoDeactivate
-            // 
-            this.rdoDeactivate.AutoSize = true;
-            this.rdoDeactivate.Location = new System.Drawing.Point(17, 42);
-            this.rdoDeactivate.Name = "rdoDeactivate";
-            this.rdoDeactivate.Size = new System.Drawing.Size(77, 17);
-            this.rdoDeactivate.TabIndex = 5;
-            this.rdoDeactivate.TabStop = true;
-            this.rdoDeactivate.Text = "Deactivate";
-            this.rdoDeactivate.UseVisualStyleBackColor = true;
-            // 
-            // rdoDelete
-            // 
-            this.rdoDelete.AutoSize = true;
-            this.rdoDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdoDelete.ForeColor = System.Drawing.Color.Red;
-            this.rdoDelete.Location = new System.Drawing.Point(17, 65);
-            this.rdoDelete.Name = "rdoDelete";
-            this.rdoDelete.Size = new System.Drawing.Size(62, 17);
-            this.rdoDelete.TabIndex = 5;
-            this.rdoDelete.TabStop = true;
-            this.rdoDelete.Text = "Delete";
-            this.rdoDelete.UseVisualStyleBackColor = true;
-            // 
-            // grpTSFilter
-            // 
-            this.grpTSFilter.Controls.Add(this.rdoClosed);
-            this.grpTSFilter.Controls.Add(this.rdoToday);
-            this.grpTSFilter.Controls.Add(this.rdoBeforeToday);
-            this.grpTSFilter.Controls.Add(this.rdoAll);
-            this.grpTSFilter.Location = new System.Drawing.Point(189, 100);
-            this.grpTSFilter.Name = "grpTSFilter";
-            this.grpTSFilter.Size = new System.Drawing.Size(116, 113);
-            this.grpTSFilter.TabIndex = 4;
-            this.grpTSFilter.TabStop = false;
-            this.grpTSFilter.Text = "Batch Filter";
-            // 
-            // rdoBeforeToday
-            // 
-            this.rdoBeforeToday.AutoSize = true;
-            this.rdoBeforeToday.Location = new System.Drawing.Point(17, 42);
-            this.rdoBeforeToday.Name = "rdoBeforeToday";
-            this.rdoBeforeToday.Size = new System.Drawing.Size(89, 17);
-            this.rdoBeforeToday.TabIndex = 5;
-            this.rdoBeforeToday.TabStop = true;
-            this.rdoBeforeToday.Text = "Before Today";
-            this.rdoBeforeToday.UseVisualStyleBackColor = true;
-            // 
-            // rdoAll
-            // 
-            this.rdoAll.AutoSize = true;
-            this.rdoAll.Location = new System.Drawing.Point(17, 19);
-            this.rdoAll.Name = "rdoAll";
-            this.rdoAll.Size = new System.Drawing.Size(36, 17);
-            this.rdoAll.TabIndex = 5;
-            this.rdoAll.TabStop = true;
-            this.rdoAll.Text = "All";
-            this.rdoAll.UseVisualStyleBackColor = true;
-            // 
-            // rdoToday
-            // 
-            this.rdoToday.AutoSize = true;
-            this.rdoToday.Location = new System.Drawing.Point(17, 65);
-            this.rdoToday.Name = "rdoToday";
-            this.rdoToday.Size = new System.Drawing.Size(55, 17);
-            this.rdoToday.TabIndex = 5;
-            this.rdoToday.TabStop = true;
-            this.rdoToday.Text = "Today";
-            this.rdoToday.UseVisualStyleBackColor = true;
-            // 
-            // rdoClosed
-            // 
-            this.rdoClosed.AutoSize = true;
-            this.rdoClosed.Location = new System.Drawing.Point(17, 88);
-            this.rdoClosed.Name = "rdoClosed";
-            this.rdoClosed.Size = new System.Drawing.Size(57, 17);
-            this.rdoClosed.TabIndex = 5;
-            this.rdoClosed.TabStop = true;
-            this.rdoClosed.Text = "Closed";
-            this.rdoClosed.UseVisualStyleBackColor = true;
-            // 
-            // btnTSBatch
-            // 
-            this.btnTSBatch.Location = new System.Drawing.Point(229, 220);
-            this.btnTSBatch.Name = "btnTSBatch";
-            this.btnTSBatch.Size = new System.Drawing.Size(75, 23);
-            this.btnTSBatch.TabIndex = 5;
-            this.btnTSBatch.Text = "Run";
-            this.btnTSBatch.UseVisualStyleBackColor = true;
-            this.btnTSBatch.Click += new System.EventHandler(this.btnTSBatch_Click);
             // 
             // frmAdmin
             // 
@@ -456,10 +594,13 @@
             this.tbUsers.PerformLayout();
             this.tbEditUser.ResumeLayout(false);
             this.tbTimestamp.ResumeLayout(false);
-            this.grpTSAction.ResumeLayout(false);
-            this.grpTSAction.PerformLayout();
             this.grpTSFilter.ResumeLayout(false);
             this.grpTSFilter.PerformLayout();
+            this.grpTSAction.ResumeLayout(false);
+            this.grpTSAction.PerformLayout();
+            this.tbMaintenance.ResumeLayout(false);
+            this.grpOverhead.ResumeLayout(false);
+            this.grpOverhead.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -500,5 +641,17 @@
         private System.Windows.Forms.RadioButton rdoBeforeToday;
         private System.Windows.Forms.RadioButton rdoAll;
         private System.Windows.Forms.Button btnTSBatch;
+        private System.Windows.Forms.GroupBox grpOverhead;
+        private System.Windows.Forms.Label lblVolunteerLabel;
+        private System.Windows.Forms.Label lblCheckinLabel;
+        private System.Windows.Forms.Label lblVolunteerTaskLabel;
+        private System.Windows.Forms.Label lblVolunteerLogLabel;
+        private System.Windows.Forms.Label lblCheckin;
+        private System.Windows.Forms.Label lblVolunteerTask;
+        private System.Windows.Forms.Label lblVolunteerLog;
+        private System.Windows.Forms.Label lblVolunteer;
+        private System.Windows.Forms.Button btnRTask;
+        private System.Windows.Forms.Button btnTRep;
+        private System.Windows.Forms.Button btnTOpt;
     }
 }
