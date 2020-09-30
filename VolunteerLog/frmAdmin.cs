@@ -422,5 +422,26 @@ namespace VolunteerLog
             loadOverheadTable();
         }
         #endregion
+        #region Export
+        private void btnExport_Click(object sender, EventArgs e)
+        {// Documents folder and todays date
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" +
+                "Volunteer_Log(" + DateTime.Now.ToString("dd-MM-yy") + ").csv";
+            string data = null;
+            try
+            {
+                data = Program.vc.getExportCSV();
+            }
+            catch (MySQLException ex)
+            {
+                ShowMySQLException(ex);
+                data = string.Empty;
+            }// Write to file
+            if (!string.IsNullOrEmpty(data)) {
+                System.IO.File.WriteAllText(path, data);
+                MessageBox.Show("Successfully written CSV to " + path + "!", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        #endregion
     }
 }

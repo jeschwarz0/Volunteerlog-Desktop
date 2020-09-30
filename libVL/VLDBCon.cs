@@ -803,6 +803,44 @@ namespace libVL
         cmd.Dispose();
         return true;
     }//end function
+        /// <summary>
+        /// Puts quotes around <c>value</c> if it contains a space.
+        /// </summary>
+        /// <param name="value">The value to alter.</param>
+        /// <returns>A quoted string if <c>value</c> contains a space.</returns>
+        private string csvEscape(string value) {
+            if (!string.IsNullOrEmpty(value) && value.Contains(" "))
+                return "\"" + value + "\"";
+            else return value;
+        }
+        /// <summary>
+        /// Gets a CSV from vLogs.
+        /// </summary>
+        /// <returns>A CSV formatted string.</returns>
+        public string getExportCSV()
+        {
+            string sql = "SELECT `FirstName`, `LastName`, `TotalHours`, `Comment`, `Class`, `Office`, `Maintenance`, `Conditioning`, `HorseCare`, `Committee`, `Board`, `JrVolunteer`, `SpecialOlympics`, `Other`, `OtherDescription` FROM `vlogs`; ";
+            MySQLCommand mc = new MySQLCommand(sql, vlcon);
+            MySQLDataReader dr;//TODO: Fix DateTime bug
+            dr = mc.ExecuteReaderEx();
+            string rval = "FirstName, LastName, TotalHours, Comment, Class, Office, Maintenance, Conditioning, HorseCare, Committee, Board, JrVolunteer, SpecialOlympics, Other, OtherDescription";
+            List<int> cols_with_text = new List<int> { 3, 17 };// The user text fields
+            const int NUM_COLS = 15;// The number of columns in vLogs
+            while (dr.Read())// Loop per row
+            {
+                for (int i = 0; i < NUM_COLS; i++) {// Add string version escaped if text field
+                    rval += cols_with_text.Contains(i) ? csvEscape(dr.GetString(i)) : dr.GetString(i);
+                    rval += i < NUM_COLS - 1 ? "," : string.Empty;
+                }
+                rval += Environment.NewLine;
+            }
+            //Close and dispose
+            dr.Close();
+            dr.Dispose();
+            mc.Dispose();
+            return rval;
+        }
+
         #endregion
         #region Generics
 

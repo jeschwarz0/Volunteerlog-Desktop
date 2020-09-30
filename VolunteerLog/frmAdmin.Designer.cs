@@ -75,6 +75,8 @@
             this.lblVolunteerLabel = new System.Windows.Forms.Label();
             this.lblCheckinLabel = new System.Windows.Forms.Label();
             this.tbExport = new System.Windows.Forms.TabPage();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.lblExportDisclaimer = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tbUsers.SuspendLayout();
             this.tbEditUser.SuspendLayout();
@@ -83,6 +85,7 @@
             this.grpTSAction.SuspendLayout();
             this.tbMaintenance.SuspendLayout();
             this.grpOverhead.SuspendLayout();
+            this.tbExport.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -569,12 +572,33 @@
             // 
             // tbExport
             // 
+            this.tbExport.Controls.Add(this.lblExportDisclaimer);
+            this.tbExport.Controls.Add(this.btnExport);
             this.tbExport.Location = new System.Drawing.Point(4, 22);
             this.tbExport.Name = "tbExport";
             this.tbExport.Size = new System.Drawing.Size(890, 437);
             this.tbExport.TabIndex = 5;
             this.tbExport.Text = "Export";
             this.tbExport.UseVisualStyleBackColor = true;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(4, 4);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 0;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // lblExportDisclaimer
+            // 
+            this.lblExportDisclaimer.AutoSize = true;
+            this.lblExportDisclaimer.Location = new System.Drawing.Point(85, 14);
+            this.lblExportDisclaimer.Name = "lblExportDisclaimer";
+            this.lblExportDisclaimer.Size = new System.Drawing.Size(331, 13);
+            this.lblExportDisclaimer.TabIndex = 1;
+            this.lblExportDisclaimer.Text = "Due to a technical problem, Date and time information is not included";
             // 
             // frmAdmin
             // 
@@ -601,6 +625,8 @@
             this.tbMaintenance.ResumeLayout(false);
             this.grpOverhead.ResumeLayout(false);
             this.grpOverhead.PerformLayout();
+            this.tbExport.ResumeLayout(false);
+            this.tbExport.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -653,5 +679,7 @@
         private System.Windows.Forms.Button btnRTask;
         private System.Windows.Forms.Button btnTRep;
         private System.Windows.Forms.Button btnTOpt;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Label lblExportDisclaimer;
     }
 }
