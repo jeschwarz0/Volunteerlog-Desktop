@@ -819,18 +819,19 @@ namespace libVL
         /// <returns>A CSV formatted string.</returns>
         public string getExportCSV()
         {
-            string sql = "SELECT `FirstName`, `LastName`, `TotalHours`, `Comment`, `Class`, `Office`, `Maintenance`, `Conditioning`, `HorseCare`, `Committee`, `Board`, `JrVolunteer`, `SpecialOlympics`, `Other`, `OtherDescription` FROM `vlogs`; ";
+            string sql = "SELECT `FirstName`, `LastName`, `Date`, `TotalHours`, `Comment`, `Class`, `Office`, `Maintenance`, `Conditioning`, `HorseCare`, `Committee`, `Board`, `JrVolunteer`, `SpecialOlympics`, `Other`, `OtherDescription` FROM `vlogs`; ";
             MySQLCommand mc = new MySQLCommand(sql, vlcon);
             MySQLDataReader dr;//TODO: Fix DateTime bug
             dr = mc.ExecuteReaderEx();
-            string rval = "FirstName, LastName, TotalHours, Comment, Class, Office, Maintenance, Conditioning, HorseCare, Committee, Board, JrVolunteer, SpecialOlympics, Other, OtherDescription";
-            List<int> cols_with_text = new List<int> { 3, 17 };// The user text fields
-            const int NUM_COLS = 15;// The number of columns in vLogs
+            string rval = "FirstName, LastName, Date, TotalHours, Comment, Class, Office, Maintenance, Conditioning, HorseCare, Committee, Board, JrVolunteer, SpecialOlympics, Other, OtherDescription" + Environment.NewLine;
+            List<int> cols_with_text = new List<int> { 4, 15 };// The user text fields
             while (dr.Read())// Loop per row
             {
-                for (int i = 0; i < NUM_COLS; i++) {// Add string version escaped if text field
-                    rval += cols_with_text.Contains(i) ? csvEscape(dr.GetString(i)) : dr.GetString(i);
-                    rval += i < NUM_COLS - 1 ? "," : string.Empty;
+                for (int i = 0; i < dr.FieldCount; i++) {// Add string version escaped if text field
+                    if (dr.GetName(i) == "Date")// Special format the date
+                        rval += dr.GetDateTime(i).ToShortDateString();
+                    else rval += cols_with_text.Contains(i) ? csvEscape(dr.GetString(i)) : dr.GetString(i);
+                    rval += i < dr.FieldCount - 1 ? "," : string.Empty;
                 }
                 rval += Environment.NewLine;
             }
